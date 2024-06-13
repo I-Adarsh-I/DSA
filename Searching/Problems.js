@@ -143,22 +143,60 @@ class searchingProblems {
     });
     let low = 0;
     let i = 1;
-    console.log(arr)
+    console.log(arr);
     while (i < n) {
       if (arr[low] < 0) {
         low++;
         i++;
-        console.log("1st loop- ",low);
+        console.log("1st loop- ", low);
       } else if (arr[low] + 1 === arr[i]) {
         low++;
         i++;
-        console.log("if else loop-", low,i);
+        console.log("if else loop-", low, i);
       } else {
         return console.log(arr[low] + 1);
       }
     }
     return console.log(arr[n - 1] + 1);
   }
+  countOccurence(arr, n, k) {
+    //your code here
+    let count = 1;
+    let nums = 0;
+    let PI = 0;
+    arr = arr.sort(function (a, b) {
+      return a - b;
+    });
+
+    for (let i = 1; i < n; i++) {
+      if (arr[PI] === arr[i]) {
+        count++;
+      } else if (arr[PI] !== arr[i] && count > Math.floor(n / k)) {
+        nums++;
+        count = 1;
+        PI = i;
+      } else {
+        count = 1;
+        PI = i;
+      }
+    }
+    if (count > Math.floor(n / k)) {
+      nums++;
+    }
+    return console.log(nums);
+  }
+  nearestPerfectSquare(n) {
+    //your code here
+    let sol=-1; 
+    let nearest = Math.floor(Math.sqrt(n));
+    let sqr1 = nearest*nearest
+    let sqr2 = (nearest+1)*(nearest+1);
+    console.log("sqrs- ", sqr1, sqr2)
+    // if(n === sqr1) {
+        
+    // }
+    return console.log(Math.max((sqr1), (sqr2)))  
+}
 }
 let sp = new searchingProblems();
 // sp.binarySearch([10, 20, 30, 40, 50, 60, 70], 60);
@@ -167,4 +205,6 @@ let sp = new searchingProblems();
 // sp.indexOfLastOccurence2([10, 20, 30, 30, 30, 60, 70], 7, 30);
 // sp.occurencesInSortedArr([10, 20, 30, 30, 30, 60, 70], 7, 30);
 // sp.squareOfNum(10)
-sp.findMissing([36, 27, -35, 43, -15, 36, 42, -1, -29, 12, -23, 40, 9, 13, -24, -10, -24, 22, -14, -39, 18, 17, -21, 32, -20, 12, -27, 17, -15, -21, -48, -28, 8, 19, 17, 43, 6, -39, -8, -21, 23, -29,-31, 34, -13, 48, -26, -35, 20, -37, -24, 41, 30, 6, 23, 12, 20, 46, 31, -45, -25, 34, -23, -14, -45, -4, -21, -37, 7, -26, 45, 32, -5, -36, 17, -16, 14, -7, 0 ,37, -42, 26, 28, 38], 84);
+// sp.findMissing();
+// sp.countOccurence([3, 1, 2, 2, 1, 2, 3, 3], 8, 4);
+sp.nearestPerfectSquare(3)
