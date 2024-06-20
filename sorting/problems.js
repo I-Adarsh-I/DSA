@@ -24,46 +24,62 @@ class sorting {
   }
   mergeSort(arr, n) {
     let low = 0;
-    let high = n-1;
+    let high = n - 1;
     let mid = Math.floor((low + high) / 2);
     let left = new Array();
     let right = new Array();
 
-    for(let i=low;i<=mid;i++){
-        left.push(arr[i]);
+    for (let i = low; i <= mid; i++) {
+      left.push(arr[i]);
     }
-    for(let i=mid+1;i<=high;i++){
-        right.push(arr[i]);
+    for (let i = mid + 1; i <= high; i++) {
+      right.push(arr[i]);
     }
 
-    let i=0;
-    let j=0;
-    let k=low;
-    while(i<left.length && j<right.length){
-        if(left[i]<=right[j]){
-            arr[k] = left[i];
-            i++;
-            k++
-        }else{
-            arr[k] = right[j];
-            j++;
-            k++;
-        }
-    }
-    while(i<mid-low+1){
-        arr[k] = left[i]
+    let i = 0;
+    let j = 0;
+    let k = low;
+    let res=0;
+    while (i < left.length && j < right.length) {
+      if (left[i] <= right[j]) {
+        arr[k] = left[i];
         i++;
-        k++
-    }
-    while(j<high-mid){
+        k++;
+      } else {
         arr[k] = right[j];
+        res+=left.length-i;
+        console.log(res);
         j++;
-        k++
+        k++;
+      }
     }
-    console.log(left, right, arr)
+    while (i < mid - low + 1) {
+      arr[k] = left[i];
+      i++;
+      k++;
+    }
+    while (j < high - mid) {
+      arr[k] = right[j];
+      j++;
+      k++;
+    }
+    console.log(left, right, arr);
+  }
+  inversions(arr, n) {
+    let count = 0;
+    for (let i = 0; i < n; i++) {
+      let j = i + 1;
+      for (j = i + 1; j < n; j++) {
+        if (i < j && arr[i] > arr[j]) {
+          count++;
+        }
+      }
+    }
+    return console.log(count);
   }
 }
 const sa = new sorting();
 // sa.bubbleSort([10,8,20,5],4)
 // sa.insertionSort([10, 8, 20, 5], 4);
-sa.mergeSort([10,20,40,20,30],5)
+sa.mergeSort([2,4,1,3,5], 5);
+// sa.inversions([50,40,30,20,10],5)
