@@ -77,9 +77,50 @@ class sorting {
     }
     return console.log(count);
   }
+  distinctEle(arr1,arr2){
+    arr1 = arr1.concat(arr2);
+    arr1 = arr1.sort(function(a,b){return a-b});
+    console.log(arr1)
+    let n = arr1.length;
+    let i=0;
+    let count=0;
+    while(i<n){
+      if(arr1[i] !== arr1[i+1]){
+        count++;
+      }
+      i++;
+    }
+    return console.log(count)
+  }
+  printIntersection(arr1, arr2, N, M)
+    {
+        //your code here
+        arr1 = arr1.concat(arr2);
+        arr1 = arr1.sort(function(a,b){return a - b});
+        
+        let res = new Array();
+        let i=0;
+        
+        while(i<arr1.length){
+            if(arr1[i] === arr1[i+1]){
+                res.push(arr1[i])
+            }
+            i++;
+        }
+        
+        if(res.length === 0){
+            return -1
+        }
+        
+        let distinctRes = [...new Set(res)];
+        
+        return console.log(distinctRes);
+    }
 }
 const sa = new sorting();
 // sa.bubbleSort([10,8,20,5],4)
 // sa.insertionSort([10, 8, 20, 5], 4);
-sa.mergeSort([2,4,1,3,5], 5);
-// sa.inversions([50,40,30,20,10],5)
+// sa.mergeSort([2,4,1,3,5], 5);
+// sa.inversions([50,40,30,20,10],5);
+// sa.distinctEle([3,3,3],[3,3,3,3])
+sa.printIntersection([1,2],[3,4],2,2)
