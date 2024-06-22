@@ -116,6 +116,28 @@ class sorting {
         
         return console.log(distinctRes);
     }
+    partition(arr,p,n){
+      let temp = new Array();
+      
+      [arr[p],arr[n-1]] = [arr[n-1],arr[p]];
+      p=n-1;
+
+      for(let i=0;i<n;i++){
+        if(arr[i] <= arr[p]){
+          temp.push(arr[i]);
+        }
+      }
+      
+      for(let i=0;i<n;i++){
+        if(arr[i] > arr[p]){
+          temp.push(arr[i]);
+        }
+      }
+
+      arr = temp
+
+      return console.log(arr);
+    }
 }
 const sa = new sorting();
 // sa.bubbleSort([10,8,20,5],4)
@@ -123,4 +145,5 @@ const sa = new sorting();
 // sa.mergeSort([2,4,1,3,5], 5);
 // sa.inversions([50,40,30,20,10],5);
 // sa.distinctEle([3,3,3],[3,3,3,3])
-sa.printIntersection([1,2],[3,4],2,2)
+// sa.printIntersection([1,2],[3,4],2,2)
+sa.partition([5,13,6,9,12,8,11],5,7)
