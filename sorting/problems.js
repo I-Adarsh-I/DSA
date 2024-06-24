@@ -39,7 +39,7 @@ class sorting {
     let i = 0;
     let j = 0;
     let k = low;
-    let res=0;
+    let res = 0;
     while (i < left.length && j < right.length) {
       if (left[i] <= right[j]) {
         arr[k] = left[i];
@@ -47,7 +47,7 @@ class sorting {
         k++;
       } else {
         arr[k] = right[j];
-        res+=left.length-i;
+        res += left.length - i;
         console.log(res);
         j++;
         k++;
@@ -77,66 +77,108 @@ class sorting {
     }
     return console.log(count);
   }
-  distinctEle(arr1,arr2){
+  distinctEle(arr1, arr2) {
     arr1 = arr1.concat(arr2);
-    arr1 = arr1.sort(function(a,b){return a-b});
-    console.log(arr1)
+    arr1 = arr1.sort(function (a, b) {
+      return a - b;
+    });
+    console.log(arr1);
     let n = arr1.length;
-    let i=0;
-    let count=0;
-    while(i<n){
-      if(arr1[i] !== arr1[i+1]){
+    let i = 0;
+    let count = 0;
+    while (i < n) {
+      if (arr1[i] !== arr1[i + 1]) {
         count++;
       }
       i++;
     }
-    return console.log(count)
+    return console.log(count);
   }
-  printIntersection(arr1, arr2, N, M)
+  printIntersection(arr1, arr2, N, M) {
+    //your code here
+    arr1 = arr1.concat(arr2);
+    arr1 = arr1.sort(function (a, b) {
+      return a - b;
+    });
+
+    let res = new Array();
+    let i = 0;
+
+    while (i < arr1.length) {
+      if (arr1[i] === arr1[i + 1]) {
+        res.push(arr1[i]);
+      }
+      i++;
+    }
+
+    if (res.length === 0) {
+      return -1;
+    }
+
+    let distinctRes = [...new Set(res)];
+
+    return console.log(distinctRes);
+  }
+  partition(arr, p, n) {
+    let temp = new Array();
+
+    [arr[p], arr[n - 1]] = [arr[n - 1], arr[p]];
+    p = n - 1;
+
+    for (let i = 0; i < n; i++) {
+      if (arr[i] <= arr[p]) {
+        temp.push(arr[i]);
+      }
+    }
+
+    for (let i = 0; i < n; i++) {
+      if (arr[i] > arr[p]) {
+        temp.push(arr[i]);
+      }
+    }
+
+    arr = temp;
+
+    return console.log(arr);
+  }
+
+  lomutoPartition(arr, l, h) {
+    let pivot = arr[h];
+    let i=l-1;
+    for(let j=l;j<h;j++){
+      if(arr[j] < pivot){
+        [arr[j],arr[i]] = [arr[i],arr[j]]
+      }
+    }
+    [arr[i+10],arr[h]] = [arr[h],arr[i+1]];
+    return console.log(i+1);
+  }
+  threeWayPartition(array, a, b)
     {
         //your code here
-        arr1 = arr1.concat(arr2);
-        arr1 = arr1.sort(function(a,b){return a - b});
+        let s=0;
+        let e=array.length-1;
         
-        let res = new Array();
-        let i=0;
-        
-        while(i<arr1.length){
-            if(arr1[i] === arr1[i+1]){
-                res.push(arr1[i])
+        function partition(arr,s,e,a,b){
+            for(let i=0;i<e;i++){
+                if(arr[i]<a){
+                    [arr[i],arr[s]] = [arr[s],arr[i]];
+                    s++;
+                }else{
+                  [arr[i],array[e]] = [arr[e],arr[i]];  
+                  e--;
+                }
             }
-            i++;
+            console.log(arr);
         }
         
-        if(res.length === 0){
-            return -1
+        const partitionArr = partition(array,s,e,a,b);
+        if(partitionArr === array){
+            return console.log(0);
+        }else{
+            return console.log(1);
         }
         
-        let distinctRes = [...new Set(res)];
-        
-        return console.log(distinctRes);
-    }
-    partition(arr,p,n){
-      let temp = new Array();
-      
-      [arr[p],arr[n-1]] = [arr[n-1],arr[p]];
-      p=n-1;
-
-      for(let i=0;i<n;i++){
-        if(arr[i] <= arr[p]){
-          temp.push(arr[i]);
-        }
-      }
-      
-      for(let i=0;i<n;i++){
-        if(arr[i] > arr[p]){
-          temp.push(arr[i]);
-        }
-      }
-
-      arr = temp
-
-      return console.log(arr);
     }
 }
 const sa = new sorting();
@@ -146,4 +188,5 @@ const sa = new sorting();
 // sa.inversions([50,40,30,20,10],5);
 // sa.distinctEle([3,3,3],[3,3,3,3])
 // sa.printIntersection([1,2],[3,4],2,2)
-sa.partition([5,13,6,9,12,8,11],5,7)
+// sa.partition([5, 13, 6, 9, 12, 8, 11], 5, 7);
+sa.threeWayPartition([1,2,3,3,4],1,2)
