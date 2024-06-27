@@ -41,7 +41,7 @@ class sorting {
     let k = low;
     let res = 0;
     while (i < left.length && j < right.length) {
-      if (left[i] <= right[j]) {
+      if (left[i] < right[j]) {
         arr[k] = left[i];
         i++;
         k++;
@@ -53,12 +53,12 @@ class sorting {
         k++;
       }
     }
-    while (i < mid - low + 1) {
+    while (i < left.lengh) {
       arr[k] = left[i];
       i++;
       k++;
     }
-    while (j < high - mid) {
+    while (j < right.length) {
       arr[k] = right[j];
       j++;
       k++;
@@ -144,49 +144,69 @@ class sorting {
 
   lomutoPartition(arr, l, h) {
     let pivot = arr[h];
-    let i=l-1;
-    for(let j=l;j<h;j++){
-      if(arr[j] < pivot){
-        [arr[j],arr[i]] = [arr[i],arr[j]]
+    let i = l - 1;
+    for (let j = l; j < h; j++) {
+      if (arr[j] < pivot) {
+        j++;
+        [arr[j], arr[i]] = [arr[i], arr[j]];
       }
     }
-    [arr[i+10],arr[h]] = [arr[h],arr[i+1]];
-    return console.log(i+1);
+    [arr[i + 1], arr[h]] = [arr[h], arr[i + 1]];
+    return console.log(i + 1);
   }
-  threeWayPartition(array, a, b)
-    {
-        //your code here
-        let s=0;
-        let e=array.length-1;
-        
-        function partition(arr,s,e,a,b){
-            for(let i=0;i<e;i++){
-                if(arr[i]<a){
-                    [arr[i],arr[s]] = [arr[s],arr[i]];
-                    s++;
-                }else{
-                  [arr[i],array[e]] = [arr[e],arr[i]];  
-                  e--;
-                }
-            }
-            console.log(arr);
+  threeWayPartition(array, a, b) {
+    //your code here
+    let s = 0;
+    let e = array.length - 1;
+
+    function partition(arr, s, e, a, b) {
+      for (let i = 0; i < e; i++) {
+        if (arr[i] < a) {
+          [arr[i], arr[s]] = [arr[s], arr[i]];
+          s++;
+        } else {
+          [arr[i], array[e]] = [arr[e], arr[i]];
+          e--;
         }
-        
-        const partitionArr = partition(array,s,e,a,b);
-        if(partitionArr === array){
-            return console.log(0);
-        }else{
-            return console.log(1);
-        }
-        
+      }
+      console.log(arr);
     }
+
+    const partitionArr = partition(array, s, e, a, b);
+    if (partitionArr === array) {
+      return console.log(0);
+    } else {
+      return console.log(1);
+    }
+  }
+  quickSort(arr, low, high) {
+    function partition(arr, low, high) {
+      let pivot = arr[high];
+      let j = low - 1;
+      for (let i = low; i < high; i++) {
+        if(arr[i] < pivot){
+          j++;
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+      }
+      [arr[j+1], arr[high]] = [arr[high], arr[j+1]];
+      return j+1;
+    }
+    if(low<high){
+      let p = partition(arr, low, high);
+      arr = this.quickSort(arr, low, p-1);
+      arr = this.quickSort(arr, p+1, high);
+    }
+    return arr;
+  }
 }
 const sa = new sorting();
 // sa.bubbleSort([10,8,20,5],4)
 // sa.insertionSort([10, 8, 20, 5], 4);
-// sa.mergeSort([2,4,1,3,5], 5);
+sa.mergeSort([2,4,1,3,5], 5);
 // sa.inversions([50,40,30,20,10],5);
 // sa.distinctEle([3,3,3],[3,3,3,3])
 // sa.printIntersection([1,2],[3,4],2,2)
 // sa.partition([5, 13, 6, 9, 12, 8, 11], 5, 7);
-sa.threeWayPartition([1,2,3,3,4],1,2)
+// sa.threeWayPartition([1,2,3,3,4],1,2)
+// console.log(sa.quickSort([2,4,1,3,5], 0, 4))
